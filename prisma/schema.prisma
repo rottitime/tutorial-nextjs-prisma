@@ -25,3 +25,18 @@ model Post {
   author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
 }
+
+model Section {
+  id          Int          @id @default(autoincrement())
+  name        String
+  slug        String
+  subSections SubSection[]
+}
+
+model SubSection {
+  id        Int      @id @default(autoincrement())
+  name      String
+  slug      String
+  Section   Section? @relation(fields: [sectionId], references: [id])
+  sectionId Int?
+}
