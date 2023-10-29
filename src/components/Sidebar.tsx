@@ -1,15 +1,24 @@
+'use client'
+import { Query, getSections } from '@/fetch'
 import { Section } from '@prisma/client'
+import { useQuery } from '@tanstack/react-query'
 
 type Props = {
-  sections: Section[]
+  initialData: Section[]
 }
 
-function Sidebar({ sections }: Props) {
+function Sidebar({ initialData }: Props) {
+  const { data } = useQuery<Section[], Error, Section[]>({
+    queryKey: [Query.SECTIONS],
+    queryFn: getSections,
+    initialData,
+  })
+
   return (
     <div>
       <h2>Sections</h2>
       <ul>
-        {sections.map((section) => (
+        {data.map((section) => (
           <li key={section.id}>{section.name}</li>
         ))}
       </ul>

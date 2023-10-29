@@ -1,24 +1,33 @@
 'use client'
-import { createSection } from '@/fetch'
+import { Query, createSection } from '@/fetch'
 import { Section } from '@prisma/client'
 import { useForm } from 'react-hook-form'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
+const fields: (keyof Section)[] = ['name', 'slug']
 
 function CreateSection() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Section>()
 
-  const fields: (keyof Section)[] = ['name', 'slug']
+  const queryClient = useQueryClient()
+
+  const { mutate } = useMutation({
+    mutationKey: [Query.SECTIONS],
+    mutationFn: createSection,
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: [Query.SECTIONS] }),
+  })
 
   return (
     <div>
       <h1>Create section</h1>
       <form
         onSubmit={handleSubmit((data) => {
-          createSection(data)
+          mutate(data)
         })}
       >
         {fields.map((field) => (

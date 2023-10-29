@@ -1,5 +1,9 @@
 import { Section, User } from '@prisma/client'
 
+export enum Query {
+  SECTIONS = 'sections',
+}
+
 export const getUsers = async (): Promise<User[]> => {
   const res = await fetch(`${process.env.API_URL}/api/get/posts`, {
     method: 'GET',

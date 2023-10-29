@@ -12,10 +12,11 @@ export default async function Home() {
   const users: User[] = await getUsers()
   const sections: Section[] = await getSections()
   console.log({ users, sections })
+
   return (
     <main className="flex p-4">
       <div className="p-5">
-        <Sidebar sections={sections} />
+        <Sidebar initialData={sections} />
       </div>
       <div className="p-5">
         <CreateSection />
