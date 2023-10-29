@@ -8,8 +8,8 @@ export default function Page() {
 
   return (
     <div>
-      <h1>Create Subsection</h1>
-      <p>sectionID: {Number(params?.sectionId)}</p>
+      <h1>Create Subsection (section: #{Number(params?.sectionId)})</h1>
+
       {params?.sectionId && (
         <CreateSubsection sectionId={Number(params.sectionId)} />
       )}

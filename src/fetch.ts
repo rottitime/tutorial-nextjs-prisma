@@ -1,7 +1,8 @@
-import { Section, User } from '@prisma/client'
+import { Section, SubSection, User } from '@prisma/client'
 
 export enum Query {
   SECTIONS = 'sections',
+  SUBSECTION = 'subsection',
 }
 
 export const getUsers = async (): Promise<User[]> => {
@@ -26,11 +27,25 @@ export const getSections = async (): Promise<Section[]> => {
   return res.json()
 }
 
-export const createSection = async (section: Section): Promise<Section> => {
-  console.log(process.env.API_URL)
+export const createSection = async (data: Section): Promise<Section> => {
   const res = await fetch(`${process.env.API_URL}/api/create/sections`, {
     method: 'POST',
-    body: JSON.stringify(section),
+    body: JSON.stringify(data),
+  })
+
+  if (!res.ok) {
+    console.log(res)
+  }
+  return res.json()
+}
+
+export const createSubsection = async (
+  data: SubSection
+): Promise<SubSection> => {
+  console.log(process.env.API_URL)
+  const res = await fetch(`${process.env.API_URL}/api/create/subsection`, {
+    method: 'POST',
+    body: JSON.stringify(data),
   })
 
   if (!res.ok) {
