@@ -24,12 +24,14 @@ function Sidebar({ initialData }: Props) {
       <ul>
         {data.map((section) => (
           <li key={section.id}>
-            <Link href={`/create/section/${section.id}`}>{section.name}</Link>
+            <Link href={`/create/subsection/${section.id}`}>
+              {section.name}
+            </Link>
 
             <ul>
               {section.subSections.map((subSection) => (
                 <li key={subSection.id}>
-                  <Link href={`/create/subsection/${subSection.id}`}>
+                  <Link href={`/create/page/${subSection.id}`}>
                     {subSection.name}
                   </Link>
                 </li>
