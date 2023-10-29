@@ -20,11 +20,13 @@ function Sidebar({ initialData }: Props) {
       <h2>Sections</h2>
       <ul>
         {data.map((section) => (
-          <li key={section.id}>{section.name}</li>
+          <li key={section.id}>
+            <Link href={`/create/section/${section.slug}`}>{section.name}</Link>
+          </li>
         ))}
       </ul>
 
-      <Link href="/create-section">Create section</Link>
+      <Link href="/create/section">Create section</Link>
     </div>
   )
 }
