@@ -1,6 +1,7 @@
 'use client'
+import { createSection } from '@/fetch'
 import { Section } from '@prisma/client'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 function CreateSection() {
   const {
@@ -17,15 +18,19 @@ function CreateSection() {
       <h1>Create section</h1>
       <form
         onSubmit={handleSubmit((data) => {
-          console.log({ data })
+          createSection(data)
         })}
       >
         {fields.map((field) => (
-          <label key={field}>
-            {field}: &nbsp;
-            <input type="text" {...register(field)} />
-          </label>
+          <div key={field}>
+            <label>
+              {field}: &nbsp;
+              <input type="text" {...register(field, { required: true })} />
+            </label>
+            {errors[field] && <span>This field is required</span>}
+          </div>
         ))}
+        <button type="submit">Create</button>
       </form>
     </div>
   )
