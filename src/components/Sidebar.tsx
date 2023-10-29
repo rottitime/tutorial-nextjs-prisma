@@ -2,6 +2,7 @@
 import { Query, getSections } from '@/fetch'
 import { Section } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
 
 type Props = {
   initialData: Section[]
@@ -22,6 +23,8 @@ function Sidebar({ initialData }: Props) {
           <li key={section.id}>{section.name}</li>
         ))}
       </ul>
+
+      <Link href="/create-section">Create section</Link>
     </div>
   )
 }

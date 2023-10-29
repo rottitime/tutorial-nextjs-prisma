@@ -10,6 +10,7 @@ function CreateSection() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Section>()
 
@@ -18,8 +19,10 @@ function CreateSection() {
   const { mutate } = useMutation({
     mutationKey: [Query.SECTIONS],
     mutationFn: createSection,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: [Query.SECTIONS] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [Query.SECTIONS] })
+      reset()
+    },
   })
 
   return (
