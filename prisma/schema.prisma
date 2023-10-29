@@ -58,7 +58,7 @@ model Question {
   questionType String
   name         String
   title        String
-  hine         String?
+  hint         String?
   page         Page?   @relation(fields: [pageId], references: [id])
   pageId       Int?
 }
