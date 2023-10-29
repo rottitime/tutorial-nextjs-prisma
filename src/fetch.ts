@@ -3,6 +3,7 @@ import { Section, SubSection, User } from '@prisma/client'
 export enum Query {
   SECTIONS = 'sections',
   SUBSECTION = 'subsection',
+  Page = 'page',
 }
 
 export const getUsers = async (): Promise<User[]> => {
