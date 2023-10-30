@@ -39,7 +39,7 @@ model SubSection {
   slug      String
   Section   Section? @relation(fields: [sectionId], references: [id])
   sectionId Int?
-  Page      Page[]
+  pages     Page[]
 }
 
 model Page {
@@ -50,7 +50,7 @@ model Page {
   subSection   SubSection? @relation(fields: [subSectionId], references: [id])
   subSectionId Int
   pageType     String
-  Question     Question[]
+  questions    Question[]
 }
 
 model Question {

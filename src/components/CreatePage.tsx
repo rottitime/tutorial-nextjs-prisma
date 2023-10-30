@@ -18,25 +18,21 @@ export default function CreatePage({ subSectionId }: Props) {
     formState: { errors },
     control,
     setError,
-    trigger,
+    trigger
   } = useForm<PageResponse>({
     defaultValues: {
       pages: [
         {
-          name: 'test',
-          subSectionId,
-        },
-      ],
-    },
+          name: '',
+          subSectionId
+        }
+      ]
+    }
   })
 
-  const { fields, append, remove } = useFieldArray<
-    PageResponse,
-    'pages',
-    'name'
-  >({
+  const { fields, append, remove } = useFieldArray<PageResponse, 'pages', 'name'>({
     control,
-    name: 'pages',
+    name: 'pages'
   })
 
   const queryClient = useQueryClient()
@@ -50,8 +46,6 @@ export default function CreatePage({ subSectionId }: Props) {
   //   },
   // })
 
-  register('subSectionId', { value: subSectionId })
-
   return (
     <form
       onSubmit={handleSubmit((data) => {
@@ -60,15 +54,30 @@ export default function CreatePage({ subSectionId }: Props) {
       })}
     >
       <ul>
-        {fields.map((item, index) => (
-          <li key={item.id}>
-            <input {...register(`test.${index}.name`)} />
+        {fields.map((item, index) => {
+          register(`pages.${index}.subSectionId`, { value: subSectionId })
+          return (
+            <li key={item.id}>
+              <input type="text" {...register(`pages.${index}.name`)} />
+              <input type="text" {...register(`pages.${index}.title`)} />
+              <input type="text" {...register(`pages.${index}.description`)} />
 
-            <button type="button" onClick={() => remove(index)}>
-              Delete
-            </button>
-          </li>
-        ))}
+              <select
+                {...register(`pages.${index}.pageType`, {
+                  required: true
+                })}
+              >
+                <option value="">Select</option>
+                <option value="question">question</option>
+                <option value="information">information</option>
+              </select>
+
+              <button type="button" onClick={() => remove(index)}>
+                Delete
+              </button>
+            </li>
+          )
+        })}
       </ul>
       <button
         type="button"
