@@ -5,23 +5,13 @@ const prisma = new PrismaClient()
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const data = JSON.parse(req.body) as Page
-    if (!data.subSectionId) return res.status(500).json({ message: 'No subSectionId' })
+    const data = JSON.parse(req.body) as Page[]
+
+    // TODO: createMany does not exist in prisma. So will need to do a loop :()
+    // if (!data.subSectionId) return res.status(500).json({ message: 'No subSectionId' })
 
     try {
-      const result = await prisma.subSection.update({
-        where: {
-          id: data.subSectionId
-        },
-        data: {
-          pages: {
-            create: {
-              title: data.title,
-              content: data.content
-            }
-          }
-        }
-      })
+      const result = await prisma.page.createMany
 
       return res.status(200).json(result)
     } catch (error) {
